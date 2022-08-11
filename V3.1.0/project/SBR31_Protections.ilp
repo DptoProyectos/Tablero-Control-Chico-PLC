@@ -1,0 +1,50 @@
+(*2*)
+(* Network 0 *)
+(*YCHPROTECCIÓN 1Selección de referencia para la protección 10 -> REMOTO1 -> AI_02 -> AI_13 -> CNT_04 -> CNT_1*)
+LD    %V3650.2
+AND(
+LD    TRUE
+EQ    TypeProtRef, 0
+MOVE    RemoteRef, RefProt1
+OR(
+LD    TRUE
+EQ    TypeProtRef, 1
+MOVE    AI0_mag, RefProt1
+)
+OR(
+LD    TRUE
+EQ    TypeProtRef, 2
+MOVE    AI1_mag, RefProt1
+)
+OR(
+LD    TRUE
+EQ    TypeProtRef, 3
+MOVE    FlowCNT0, RefProt1
+)
+OR(
+LD    TRUE
+EQ    TypeProtRef, 4
+MOVE    FlowCNT1, RefProt1
+)
+)
+(* Network 1 *)
+(*YCHPROTECCIÓN 1Condición de apgado por protección al sistema*)
+LD    %V3650.2
+AND(
+LD    %M102.3
+AND    %M102.4
+AND    %M102.5
+LE    RefProt1, Prot1OffCond
+OR    %M112.4
+)
+R    %M102.4
+R    %M102.5
+S    %M112.4
+(* Network 2 *)
+(*YCHPROTECCIÓN 1Condición de restablecimiento de la protección al sistema*)
+LD    %M112.4
+GE    RefProt1, Prot1RestCond
+R    %M112.4
+S    %M102.3
+S    %M102.4
+S    %M102.5

@@ -1,0 +1,17 @@
+(*2*)
+(* Network 0 *)
+(*YCHIndico el modo en el que estoy trabajando0 -> EMERGENCIA 1 -> LOCAL2 -> REMOTO3 -> AUTOMATICO*)
+LD    TRUE
+MOVE    0, WorkingMode
+(* Network 1 *)
+(*YCHLe cedo el control al sistema de emergencia*)
+LD    TRUE
+R    %M102.3
+(* Network 2 *)
+(*YCHPongo la bomba a funcionar a 50hz*)
+LD    TRUE
+MOVE    50.0, FreqPump
+(* Network 3 *)
+(*YCHMuestro el estado de la bomba en base a ST0*)
+LD    %M101.7
+ST   %M112.2

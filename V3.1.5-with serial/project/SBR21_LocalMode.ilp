@@ -1,0 +1,17 @@
+(*2*)
+(* Network 0 *)
+(*YCHIndico el modo en el que estoy trabajando0 -> EMERGENCIA 1 -> LOCAL2 -> REMOTO3 -> AUTOMATICO*)
+LD    TRUE
+MOVE    1, WorkingMode
+(* Network 1 *)
+(*YCHLe sedo el control al sistema de emergenncia para poder usar la entrada CO1_EMG para una posible bomba dosificadora*)
+LD    TRUE
+R    %M102.3
+(* Network 2 *)
+(*YCHPongo la bomba a trabajar a 50.0Hz*)
+LD    TRUE
+MOVE    50.0, FreqPump
+(* Network 3 *)
+(*YCHMuestro el estado de la bomba en base a ST0*)
+LD    %M101.7
+ST   %M112.2

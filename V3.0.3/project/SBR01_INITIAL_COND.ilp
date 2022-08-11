@@ -1,0 +1,16 @@
+(*2*)
+(* Network 0 *)
+(*YCHCONFIGURACION*)
+LD    TRUE
+AND(
+LD    TRUE
+MOVE    80, TimePulseOn
+OR(
+LD    TRUE
+MOVE    200, TimePulseOff
+)
+OR(
+LD    TRUE
+MOVE    DI#15, TimerPoll
+)
+)

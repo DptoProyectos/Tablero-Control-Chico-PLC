@@ -1,0 +1,44 @@
+(*2*)
+(* Network 0 *)
+(*YCHSeñal de modo que proviene de la web100 -> EMERGENCIA | 101 -> AUTOMATICO | 102 -REMOTO*)
+LD    TRUE
+AND(
+LD    TRUE
+EQ    mReg1934, 100
+OR(
+LD    TRUE
+EQ    mReg1934, 101
+)
+OR(
+LD    TRUE
+EQ    mReg1934, 102
+)
+)
+MOVE    mReg1934, WebMode
+SUB    100, WebMode
+(* Network 1 *)
+(*YCHSeñal de apagado que viene desde el control web*)
+LD    TRUE
+EQ    mReg1935, 100
+R    %V3648.0
+(* Network 2 *)
+(*YCHSeñal de prendido que viene desde el control web*)
+LD    TRUE
+EQ    mReg1935, 101
+S    %V3648.0
+(* Network 3 *)
+(*YCHNivel minimo para el control automatico por niveles*)
+LD    TRUE
+MOVE    mReg1955, MinLevel
+(* Network 4 *)
+(*YCHNivel maximo para el control automarico por nivelesLevelRef*)
+LD    TRUE
+MOVE    mReg1957, MaxLevel
+(* Network 5 *)
+(*YCHNivel de referencia para el control automarico por niveles*)
+LD    TRUE
+MOVE    mReg1962, LevelRef
+(* Network 6 *)
+(*YCHFrecuencia a la cual se quiere poner a trabajar la bomba*)
+LD    TRUE
+MOVE    mReg1959, FreqPump

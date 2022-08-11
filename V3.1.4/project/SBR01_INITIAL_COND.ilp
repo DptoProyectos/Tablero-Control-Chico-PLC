@@ -1,0 +1,5 @@
+(*2*)
+(* Network 0 *)
+(*YCHArranco con la señal de leer los canales analógicos de entrada en nivel bajo*)
+LD    TRUE
+R    %M100.6

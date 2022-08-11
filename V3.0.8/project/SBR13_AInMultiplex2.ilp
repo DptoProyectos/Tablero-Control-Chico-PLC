@@ -1,0 +1,126 @@
+(*2*)
+(* Network 0 *)
+(*YCHCONDICIONES DE EJECUCIONNo hay señales analógicas activadas*)
+LDN    EnAIN1
+ANDN    EnAIN0
+ST   NoAins
+(* Network 1 *)
+(*YCHCONDICIONES DE EJECUCIONSolo está activa la señal analógica para el canal 0*)
+LDN    EnAIN1
+AND    EnAIN0
+ST   OnlyAIN0
+(* Network 2 *)
+(*YCHCONDICIONES DE EJECUCIONSolo está activa la señal analógica para el canal 1*)
+LD    EnAIN1
+ANDN    EnAIN0
+ST   OnlyAIN1
+(* Network 3 *)
+(*YCHCONDICIONES DE EJECUCIONAmbas señales analógicas activas*)
+LD    EnAIN1
+AND    EnAIN0
+ST   BothAINs
+(* Network 4 *)
+(*YCH************************************************************************----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------CORRIDA DEL BLOQUESin señales analógicas activasActivo la señal busy para generar un flanco de subida*)
+LD    NoAins
+AND    START
+R_TRIG
+S    BSY
+(* Network 5 *)
+(*YCHCORRIDA DEL BLOQUESin señales analógicas activasDesactivo la señal busy para generar un flanco de bajada y que pueda seguir corriendo el software*)
+LD    NoAins
+AND    BSY
+TON   T72, 1
+__CR_EQ_1
+MOVE    T72, int0
+__CR_RESTORE
+R    BSY
+(* Network 6 *)
+(*YCH************************************************************************----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------CORRIDA DEL BLOQUESolo activa la señal de canal analógico 0- Activo la señal busy para generar un flanco de subida- Pongo en cero la salida de  control para seleccionar el VAIN0*)
+LD    OnlyAIN0
+AND    START
+R_TRIG
+S    BSY
+R    SWO0
+(* Network 7 *)
+(*YCHCORRIDA DEL BLOQUESolo activa la señal de canal analógico 0- Muevo el valor de la antrada analógica para el VAIN0- Desactivo la señal busy para generar un flanco de bajada y que pueda seguir corriendo el software*)
+LD    OnlyAIN0
+AND    BSY
+MOVE    %AIW0, VAI0
+TON   T73, 1
+__CR_EQ_1
+MOVE    T73, int0
+__CR_RESTORE
+R    BSY
+(* Network 8 *)
+(*YCH************************************************************************----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------CORRIDA DEL BLOQUESolo activa la señal de canal analógico 1- Activo la señal busy para generar un flanco de subida- Pongo en uno la salida de  control para seleccionar el VAIN1*)
+LD    OnlyAIN1
+AND    START
+R_TRIG
+S    BSY
+S    SWO0
+(* Network 9 *)
+(*YCHCORRIDA DEL BLOQUESolo activa la señal de canal analógico 1- Muevo el valor de la antrada analógica para el VAIN1- Desactivo la señal busy para generar un flanco de bajada y que pueda seguir corriendo el software*)
+LD    OnlyAIN1
+AND    BSY
+MOVE    %AIW0, VAI1
+TON   T74, 1
+__CR_EQ_1
+MOVE    T74, int0
+__CR_RESTORE
+R    BSY
+(* Network 10 *)
+(*YCH************************************************************************----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------CORRIDA DEL BLOQUEAmbas señales analógicas activas- En condiciones inciales se va para el estado cero para hacer un ciclo de toma de medidas*)
+LD    BothAINs
+AND    %SM0.1
+MOVE    0, modState
+(* Network 11 *)
+(*YCH************************************************************************----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------CORRIDA DEL BLOQUEAmbas señales analógicas activas- Se inicia un ciclo de toma de medida tras in flanco de subida de la señal de start*)
+LD    BothAINs
+AND    START
+R_TRIG
+MOVE    0, modState
+(* Network 12 *)
+(*YCHCORRIDA DEL BLOQUEAmbas señales analógicas activas- Pongo las salidas en la siguiente configuraciónQ0.4 = 0*)
+LD    BothAINs
+EQ    modState, 0
+R    SWO0
+(* Network 13 *)
+(*YCHCORRIDA DEL BLOQUEAmbas señales analógicas activas- Espero un segundo con las salidas en esta posicion antes de tomar la muestra*)
+LD    BothAINs
+EQ    modState, 0
+TON   T70, 50
+__CR_EQ_1
+MOVE    T70, int0
+__CR_RESTORE
+MOVE    %AIW0, VAI0
+MOVE    1, modState
+(* Network 14 *)
+(*YCHYCHCORRIDA DEL BLOQUEAmbas señales analógicas activas- Pongo las salidas en la siguiente configuraciónQ0.4 = 1*)
+LD    BothAINs
+EQ    modState, 1
+S    SWO0
+(* Network 15 *)
+(*YCHCORRIDA DEL BLOQUEAmbas señales analógicas activas- Espero un segundo con las salidas en esta posicion antes de tomar la muestra*)
+LD    BothAINs
+EQ    modState, 1
+TON   T71, 50
+__CR_EQ_1
+MOVE    T71, int0
+__CR_RESTORE
+MOVE    %AIW0, VAI1
+MOVE    2, modState
+(* Network 16 *)
+(*YCHCORRIDA DEL BLOQUEAmbas señales analógicas activas- Pongo las salidas en la siguiente configuración para ahorrar energiaQ0.4 = 0*)
+LD    BothAINs
+EQ    modState, 2
+R    SWO0
+(* Network 17 *)
+(*YCHCORRIDA DEL BLOQUEAmbas señales analógicas activas- Activo el bit busy para indicar que se esta en proceso de toma de medida*)
+LD    BothAINs
+NE    modState, 2
+S    BSY
+(* Network 18 *)
+(*YCHCORRIDA DEL BLOQUEAmbas señales analógicas activas- Activo el bit busy para indicar que se esta en proceso de toma de medida*)
+LD    BothAINs
+EQ    modState, 2
+R    BSY
