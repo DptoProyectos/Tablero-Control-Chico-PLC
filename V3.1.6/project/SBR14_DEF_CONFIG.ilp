@@ -1,0 +1,129 @@
+(*2*)
+(* Network 0 *)
+(*YCHSe define el tiempo en segundo para las ejecuciones del bloque de software*)
+LD    TRUE
+MOVE    DI#15, TimerPoll
+(* Network 1 *)
+(*YCHCNT0Tiempo (ms) en ON de un pulso válido para el contador CNT0*)
+LD    TRUE
+MOVE    80, TimePulseOn
+(* Network 2 *)
+(*YCHCNT0Tiempo (ms) en OFF de un pulso válido para el contador CNT0*)
+LD    TRUE
+MOVE    200, TimePulseOff
+(* Network 3 *)
+(*YCHCNT0Valor que representa un pulsos en la unidad que se quiere expresar*)
+LD    TRUE
+MOVE    0.01, Magpp
+(* Network 4 *)
+(*YCHCNT0Valor de conteo de pusos que pasan*)
+LD    TRUE
+MOVE    DI#0, PulseCount
+(* Network 5 *)
+(*YCHCNT1Tiempo (ms) en ON de un pulso válido para el contador CNT1*)
+LD    TRUE
+MOVE    80, TimePulseOn1
+(* Network 6 *)
+(*YCHCNT1Tiempo (ms) en OFF de un pulso válido para el contador CNT1*)
+LD    TRUE
+MOVE    200, TimePulseOff1
+(* Network 7 *)
+(*YCHCNT1Valor que representa un pulsos en la unidad que se quiere expresar*)
+LD    TRUE
+MOVE    0.01, Magpp1
+(* Network 8 *)
+(*YCHCNT0Valor de conteo de pusos que pasan*)
+LD    TRUE
+MOVE    DI#0, PulseCount1
+(* Network 9 *)
+(*YCHAIN0Corriente mínima*)
+LD    TRUE
+MOVE    4, AI0_Imin
+(* Network 10 *)
+(*YCHAIN0Corriente máxima*)
+LD    TRUE
+MOVE    20, AI0_Imax
+(* Network 11 *)
+(*YCHAIN0Magnitud minima de salida*)
+LD    TRUE
+MOVE    0.0, AI0_Mmin
+(* Network 12 *)
+(*YCHAIN0Magnitud maxima de salida*)
+LD    TRUE
+MOVE    15.0, AI0_Mmax
+(* Network 13 *)
+(*YCHAIN1Corriente mínima*)
+LD    TRUE
+MOVE    4, AI1_Imin
+(* Network 14 *)
+(*YCHAIN1Corriente máxima*)
+LD    TRUE
+MOVE    20, AI1_Imax
+(* Network 15 *)
+(*YCHAIN1Magnitud minima de salida*)
+LD    TRUE
+MOVE    0.0, AI1_Mmin
+(* Network 16 *)
+(*YCHAIN1Magnitud maxima de salida*)
+LD    TRUE
+MOVE    15.0, AI1_Mmax
+(* Network 17 *)
+(*YCHAO0Corriente mínima*)
+LD    TRUE
+MOVE    0, AO0_Imin
+(* Network 18 *)
+(*YCHAO0Corriente máxima*)
+LD    TRUE
+MOVE    10, AO0_Imax
+(* Network 19 *)
+(*YCHAO0Magnitud minima de entrada*)
+LD    TRUE
+MOVE    0.0, AO0_Mmin
+(* Network 20 *)
+(*YCHAO0Magnitud maxima de entrada*)
+LD    TRUE
+MOVE    50.0, AO0_Mmax
+(* Network 21 *)
+(*YCHENCENDIDO DIARIO*)
+LD    TRUE
+MOVE    255, mReg1990
+MOVE    15, mReg2019
+MOVE    00, mReg2020
+MOVE    16, mReg2021
+MOVE    00, mReg2022
+(* Network 22 *)
+(*YCHConfiguración predeterminada del timerCENT = 20FMT = 0*)
+LD    TRUE
+MOVE    B#20, SetRTCCent
+MOVE    B#0, RTCFMT
+(* Network 23 *)
+(*YCHREFERENCIAS REMOTASValores de validación para el dato que viene de las referencia remota*)
+LD    TRUE
+MOVE    -0.1, LMinRef1
+MOVE    15.1, LMaxRef1
+MOVE    -0.1, LMinRef2
+MOVE    15.1, LMaxRef2
+(* Network 24 *)
+(*REFERENCIAS REMOTASValores para escalador de referencia remota*)
+LD    TRUE
+MOVE    1.0, Ref1Fact
+MOVE    0.0, Ref1Offset
+MOVE    1.0, Ref2Fact
+MOVE    0.0, Ref2Offset
+(* Network 25 *)
+(*YCHPor default la perforación arranca a trabajar en modo remoto apagada*)
+LD    TRUE
+MOVE    102, mReg1934
+MOVE    100, mReg1935
+(* Network 26 *)
+(*YCHConfiguración para el control por consigna contínua*)
+LD    TRUE
+MOVE    15.0, DltRef
+MOVE    50.0, DltModOut
+(* Network 27 *)
+(*YCHCONFIGURACIÓN POR DEFECTO DE LAS PROTECIONES*)
+LD    TRUE
+MOVE    1, TypeProtRef
+MOVE    2.5, Prot1OffCond
+MOVE    2.7, Prot1RestCond
+R    %V3648.4

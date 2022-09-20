@@ -1,0 +1,4 @@
+VAR_OUTPUT
+    OutUn  AT  %LD236 : REAL ; (* Valor en donde se guardan las unidades *) 
+    OutDec  AT  %LD240 : REAL ; (* Valor en donde se guardan los enteros *) 
+END_VAR

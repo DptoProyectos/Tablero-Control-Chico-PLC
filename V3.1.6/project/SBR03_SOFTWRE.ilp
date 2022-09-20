@@ -1,0 +1,63 @@
+(*2*)
+(* Network 0 *)
+(*READ ANALOG INPUTSDoy señal para inciar lectura de las entradas analógicas y espero que termineState  = 1*)
+LD    TRUE
+EQ    State, 1
+S_BLK    1, ReadAin
+AND    %M100.7
+F_TRIG
+MOVE    2, State
+R    %M100.6
+(* Network 1 *)
+(*YCHMATH COUNTERSRealizo los cálculos relacionados a las entradas de conteo de pulsosState  = 2*)
+LD    TRUE
+EQ    State, 2
+CAL    SBR17
+MOVE    3, State
+(* Network 2 *)
+(*YCHCONTROLSelección de ModoState = 3*)
+LD    TRUE
+EQ    State, 3
+AND(
+LDN    %M101.6
+AND(
+LD    TRUE
+EQ    WebMode, 0
+CAL    SBR18
+OR(
+LD    TRUE
+EQ    WebMode, 1
+CAL    SBR19
+)
+OR(
+LD    TRUE
+EQ    WebMode, 2
+CAL    SBR20
+)
+OR(
+LD    TRUE
+EQ    WebMode, 3
+CAL    SBR27
+)
+)
+OR(
+LD    %M101.6
+CAL    SBR21
+)
+OR(
+LD    TRUE
+MOVE    4, State
+)
+)
+(* Network 3 *)
+(*YCHPROTECCIONESSelección de ModoState = 4*)
+LD    TRUE
+EQ    State, 4
+CAL    SBR31
+MOVE    5, State
+(* Network 4 *)
+(*YCHTX SERIALSelección de ModoState = 4Se transmiten los datos por el puerto serial.*)
+LD    TRUE
+EQ    State, 5
+MOVE    100, State
+S    %M115.6

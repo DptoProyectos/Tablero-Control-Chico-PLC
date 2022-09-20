@@ -1,0 +1,51 @@
+(*2*)
+(* Network 0 *)
+(*YCHInformo sobre el valor de la entrada de estado*)
+LD    DIN
+ST   DOUT
+(* Network 1 *)
+(*YCHContador de tiempo con resolució de segundos para la entrada digital. El mismo cuenta hasta 999 999 999 horas y 59 segundos. Lugo vuelve a cero*)
+LD    DIN
+AND(
+LDN    %M115.5
+TON   T90, 5
+__CR_EQ_1
+MOVE    T90, int0
+__CR_RESTORE
+S_BLK    1, ST0_SegTogg
+OR(
+LD    %M115.5
+TON   T91, 5
+__CR_EQ_1
+MOVE    T91, int0
+__CR_RESTORE
+R_BLK    1, ST0_SegTogg
+)
+)
+AND    %M115.5
+F_TRIG
+INC    ST0_segCount
+GE    ST0_segCount, B#60
+MOVE    B#0, ST0_segCount
+INC    ST0_MinCount
+GE    ST0_MinCount, B#60
+MOVE    B#0, ST0_MinCount
+INC    ST0_hourCount
+GE    ST0_hourCount, DI#999999
+MOVE    DI#0, ST0_hourCount
+(* Network 2 *)
+(*YCHPresentación del valor de salida*)
+LD    TRUE
+AND(
+LD    TRUE
+DI_TO_R    ST0_hourCount, real0
+OR(
+LD    TRUE
+B_TO_I    ST0_MinCount, int0
+I_TO_DI    int0, dint0
+DI_TO_R    dint0, real1
+DIV    100.0, real1
+)
+)
+MOVE    real0, ST0_Time
+ADD    real1, ST0_Time

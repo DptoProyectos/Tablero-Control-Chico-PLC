@@ -1,0 +1,6 @@
+VAR_INPUT
+    DIN  AT  %L4.1 : BOOL ; (*  *) 
+END_VAR
+VAR_OUTPUT
+    DOUT  AT  %L4.2 : BOOL ; (*  *) 
+END_VAR

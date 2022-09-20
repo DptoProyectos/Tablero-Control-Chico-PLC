@@ -1,0 +1,6 @@
+VAR_INPUT
+    ExIN  AT  %LD228 : REAL ; (*  *) 
+END_VAR
+VAR_OUTPUT
+    ExOut  AT  %LD232 : REAL ; (*  *) 
+END_VAR

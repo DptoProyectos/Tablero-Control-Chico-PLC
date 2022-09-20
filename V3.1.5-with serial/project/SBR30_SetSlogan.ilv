@@ -5,5 +5,5 @@ VAR_INPUT
     Ref  AT  %LD220 : REAL ; (*  *) 
 END_VAR
 VAR_IN_OUT
-    Out  AT  %LD224 : REAL ; (*  *) 
+    Out  AT  %LD208 : REAL ; (*  *) 
 END_VAR
